@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+lse#!/usr/bin/env python3
 
 import subprocess
 import sys
@@ -20,8 +20,9 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("ERROR: No packagename given.")
         print("HINT: python3 apt-who-needs.py <PackageName>")
-        sys.exit(1)
-
-    package_name = sys.argv[1]
-    update_package_lists()
-    get_installed_dependencies(package_name)
+        sys.exit(0)
+    else: 
+        package_name = sys.argv[1]
+        update_package_lists()
+        get_installed_dependencies(package_name)
+        sys.exit(0)
