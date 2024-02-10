@@ -17,4 +17,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y apt-rdepends
     - name: Run tests
-      run: python3 test_script.py
+      run:
+        python3 apt-who-needs.py
+        python3 apt-who-needs apt
