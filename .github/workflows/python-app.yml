@@ -19,4 +19,4 @@ jobs:
     - name: Run tests
       run:
         sudo python3 apt-who-needs.py;
-        sudo python3 apt-who-needs apt;
+        sudo python3 apt-who-needs.py apt;
