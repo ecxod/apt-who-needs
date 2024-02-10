@@ -2,6 +2,7 @@
 
 import subprocess
 import sys
+import os
 
 def check_root():
     if os.geteuid() != 0:
