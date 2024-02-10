@@ -16,9 +16,12 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y apt-rdepends sudo
+    - name: Run test without root rights
+      run:
+        python3 apt-who-needs.py;
     - name: Run test without package
       run:
         sudo python3 apt-who-needs.py;
-    - name: Run test without package
+    - name: Run test with package
       run:
         sudo python3 apt-who-needs.py apt;
