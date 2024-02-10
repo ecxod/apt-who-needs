@@ -18,7 +18,7 @@ jobs:
         sudo apt-get install -y apt-rdepends sudo
     - name: Run test without package
       run:
-        sudo apt-who-needs.py;
+        sudo üython3 apt-who-needs.py;
     - name: Run test without package
       run:
-        sudo apt-who-needs.py apt;
+        sudo python3 apt-who-needs.py apt;
