@@ -14,7 +14,7 @@ def get_installed_dependencies(package_name):
     for line in rdepends_output.splitlines():
         if line.strip() in installed_packages:
             if line != package_name:
-                print(f"\033[32m\033[47m{line}\033[0m is installed and requires \033[32m\033[47m{package_name}\033[0m")
+                print(f"\033[32m{line}\033[0m is installed and requires \033[32m{package_name}\033[0m")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
