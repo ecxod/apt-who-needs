@@ -15,8 +15,8 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y apt-rdepends
+        sudo apt-get install -y apt-rdepends sudo
     - name: Run tests
       run:
-        python3 apt-who-needs.py
-        python3 apt-who-needs apt
+        sudo python3 apt-who-needs.py
+        sudo python3 apt-who-needs apt
