@@ -18,7 +18,7 @@ def get_installed_dependencies(package_name):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("ERROR: No packagename givven.")
+        print("ERROR: No packagename given.")
         print("HINT: python3 apt-who-needs.py <PackageName>")
         sys.exit(1)
 
