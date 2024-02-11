@@ -4,9 +4,11 @@ Determines which installed packages require the given package. Save the script s
 
 get it :
 ```
-apt install python3
+apt install python3 apt-rdepends
 wget  https://github.com/ecxod/apt-who-needs/releases/download/1.0.0/apt-who-needs.deb
 sudo dpkg -i apt-who-needs.deb
+or
+sudo apt install ./apt-who-needs.deb
 ```
 
 and run it like this: 
