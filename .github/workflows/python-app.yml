@@ -99,6 +99,6 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         #upload_url: apt-who-needs/
-        asset_path: ./apt-who-needs.zip
-        asset_name: apt-who-needs.zip
-        asset_content_type: application/zip
+        asset_path: ./apt-who-needs.deb
+        asset_name: apt-who-needs.deb
+        asset_content_type: application/octet-stream
