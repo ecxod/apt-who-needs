@@ -72,7 +72,7 @@ jobs:
         name: apt-who-needs
         path: apt-who-needs.deb
     - name: Upload Release Asset
-      uses: actions/upload-release-asset@v2
+      uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.MAGIC_TOKEN }}
       with:
