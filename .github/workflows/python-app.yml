@@ -69,6 +69,25 @@ jobs:
       env:
         TAG_NAME: ${{ env.LATEST_TAG }}
 
+    - name: Get Release by Tag Name
+      id: get_release
+      if: steps.check_tag.outputs.tag_exists == 'true'
+      run: |
+        RELEASE_DATA=$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                            -H "Accept: application/vnd.github.v3+json" \
+                            "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ env.LATEST_TAG }}")
+        echo "RELEASE_ID=$(echo $RELEASE_DATA | jq .id)" >> $GITHUB_ENV
+        echo "UPLOAD_URL=$(echo $RELEASE_DATA | jq -r .upload_url)" >> $GITHUB_ENV
+      shell: bash
+    
+    - name: Upload Asset to Existing Release
+      if: steps.check_tag.outputs.tag_exists == 'true'
+      run: |
+        UPLOAD_URL="${UPLOAD_URL%\{*}"
+        curl -X POST "$UPLOAD_URL?name=apt-who-needs.deb&label=apt-who```
+
+
+
     - name: Build .deb Package
       run: |
         mkdir -p apt-who-needs/DEBIAN
