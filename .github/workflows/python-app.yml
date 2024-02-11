@@ -7,14 +7,12 @@ on:
       - master
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-  
+
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -23,7 +21,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y apt-rdepends
-        sudo apt-get install -y dpkg-dev
     - name: Run test without root rights
       id: run-without-root-rights
       run: |
@@ -36,6 +33,24 @@ jobs:
       id: run-with-package
       run: |
         sudo python3 apt-who-needs.py apt;
+        
+  build:
+    needs: check
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y dpkg-dev
     - name: Get the latest tag
       id: get-latest-tag
       run: |
@@ -55,7 +70,6 @@ jobs:
         cp apt-who-needs.py apt-who-needs/usr/local/bin/apt-who-needs
         chmod +x apt-who-needs/usr/local/bin/apt-who-needs
         dpkg-deb --build apt-who-needs
-
     - name: Upload .deb Package as Artifact
       uses: actions/upload-artifact@v2
       with:
