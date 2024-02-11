@@ -85,7 +85,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.MAGIC_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        #upload_url: ${{ steps.create_release.outputs.upload_url }}
+        upload_url: /
         asset_path: ./apt-who-needs.zip
         asset_name: apt-who-needs.zip
         asset_content_type: application/zip
