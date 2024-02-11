@@ -17,4 +17,17 @@ and run it like this:
 sudo apt-who-needs packagename
 ```
 
+>root@host:~# apt-who-needs apt  
+>Reading package lists... Done  
+>Building dependency tree... Done  
+>Reading state information... Done  
+>apt-file is installed and requires apt  
+>apt-listbugs is installed and requires apt  
+>apt-listchanges is installed and requires apt  
+>apt-transport-https is installed and requires apt  
+>apt-utils is installed and requires apt  
+>python3-reportbug is installed and requires apt  
+>reportbug is installed and requires apt  
+
+
 have fun.
