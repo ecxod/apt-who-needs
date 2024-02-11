@@ -1,6 +1,10 @@
 name: Python Application Test
 
-on: [push]
+
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -8,6 +12,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+  
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -15,13 +22,42 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y apt-rdepends sudo
+        sudo apt-get install -y apt-rdepends
+        sudo apt-get install -y dpkg-dev
     - name: Run test without root rights
+      id: run-without-root-rights
       run:
         python3 apt-who-needs.py;
     - name: Run test without package
+      id: run-without-package
       run:
         sudo python3 apt-who-needs.py;
     - name: Run test with package
+      id: run-with-package
       run:
         sudo python3 apt-who-needs.py apt;
+    - name: Get the latest tag
+      id: get-latest-tag
+      run: 
+        echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+    - name: Build .deb Package
+      run: |
+        mkdir -p apt-who-needs/DEBIAN
+        mkdir -p apt-who-needs/usr/local/bin
+        echo "Package: apt-who-needs" > apt-who-needs/DEBIAN/control
+        echo "Version: ${{ env.LATEST_TAG }}" >> apt-who-needs/DEBIAN/control
+        echo "Section: base" >> apt-who-needs/DEBIAN/control
+        echo "Priority: optional" >> apt-who-needs/DEBIAN/control
+        echo "Architecture: all" >> apt-who-needs/DEBIAN/control
+        echo "Depends: python3" >> apt-who-needs/DEBIAN/control
+        echo "Maintainer: ${{ secrets.MY_NAME }} <${{ secrets.MY_EMAIL }>" >> apt-who-needs/DEBIAN/control
+        echo "Description: Efinds out which packages depend on the specified package " >> apt-who-needs/DEBIAN/control
+        cp apt-who-needs.py apt-who-needs/usr/local/bin/apt-who-needs
+        chmod +x apt-who-needs/usr/local/bin/apt-who-needs
+        dpkg-deb --build apt-who-needs
+
+    - name: Upload .deb Package as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: apt-who-needs
+        path: apt-who-needs.deb
