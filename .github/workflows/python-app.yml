@@ -67,7 +67,7 @@ jobs:
         echo "Section: base" >> apt-who-needs/DEBIAN/control
         echo "Priority: optional" >> apt-who-needs/DEBIAN/control
         echo "Architecture: all" >> apt-who-needs/DEBIAN/control
-        echo "Depends: apt apt-rdepends python3" >> apt-who-needs/DEBIAN/control
+        echo "Depends: apt, apt-rdepends, python3" >> apt-who-needs/DEBIAN/control
         echo "Maintainer: ${{ secrets.MY_NAME }} <${{ secrets.MY_EMAIL }}>" >> apt-who-needs/DEBIAN/control
         echo "Description: Efinds out which packages depend on the specified package " >> apt-who-needs/DEBIAN/control
         cp apt-who-needs.py apt-who-needs/usr/local/bin/apt-who-needs
