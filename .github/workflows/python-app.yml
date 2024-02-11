@@ -76,32 +76,23 @@ jobs:
         name: apt-who-needs
         path: apt-who-needs.deb
 
-
-
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get the latest tag
-        id: get-latest-tag
-        run: |
-          echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.MAGIC_TOKEN }}
-        with:
-          tag_name:  ${{ env.LATEST_TAG }}
-          release_name: Release  ${{ env.LATEST_TAG }}
-          draft: false
-          prerelease: true
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.MAGIC_TOKEN }}
+      with:
+        tag_name:  ${{ env.LATEST_TAG }}
+        release_name: Release  ${{ env.LATEST_TAG }}
+        draft: false
+        prerelease: true
   
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.MAGIC_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifact.zip
-          asset_name: artifact.zip
-          asset_content_type: application/zip
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+       env:
+        GITHUB_TOKEN: ${{ secrets.MAGIC_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./artifact.zip
+        asset_name: artifact.zip
+        asset_content_type: application/zip
