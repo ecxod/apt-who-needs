@@ -71,3 +71,12 @@ jobs:
       with:
         name: apt-who-needs
         path: apt-who-needs.deb
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.MAGIC_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./path/to/your/artifact.zip
+        asset_name: artifact.zip
+        asset_content_type: application/zip
