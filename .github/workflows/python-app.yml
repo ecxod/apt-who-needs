@@ -98,7 +98,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.MAGIC_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        #upload_url: apt-who-needs/
         asset_path: ./apt-who-needs.deb
         asset_name: apt-who-needs.deb
         asset_content_type: application/octet-stream
