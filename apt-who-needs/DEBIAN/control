@@ -1,8 +1,0 @@
-Package: apt-who-needs
-Version: 0.2
-Section: base
-Priority: optional
-Architecture: all
-Depends: python3, python3-pip, sudo
-Maintainer: Chr. Eichert <c@zp1.net>
-Description: finds out which packages depend on the specified package 
