@@ -57,6 +57,18 @@ jobs:
       id: get-latest-tag
       run: |
         echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
+
+    - name: Check if tag exists
+      id: check_tag
+      run: |
+        if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+          echo "::set-output name=tag_exists::true"
+        else
+          echo "::set-output name=tag_exists::false"
+        fi
+      env:
+        TAG_NAME: ${{ env.LATEST_TAG }}
+
     - name: Build .deb Package
       run: |
         mkdir -p apt-who-needs/DEBIAN
@@ -80,6 +92,7 @@ jobs:
 
     - name: Create Release
       id: create_release
+      if: steps.check_tag.outputs.tag_exists == 'false'
       uses: actions/create-release@v1.1.4
       env:
         GITHUB_TOKEN: ${{ secrets.MAGIC_TOKEN }}
