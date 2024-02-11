@@ -26,19 +26,19 @@ jobs:
         sudo apt-get install -y dpkg-dev
     - name: Run test without root rights
       id: run-without-root-rights
-      run:
+      run: |
         python3 apt-who-needs.py;
     - name: Run test without package
       id: run-without-package
-      run:
+      run: |
         sudo python3 apt-who-needs.py;
     - name: Run test with package
       id: run-with-package
-      run:
+      run: |
         sudo python3 apt-who-needs.py apt;
     - name: Get the latest tag
       id: get-latest-tag
-      run: 
+      run: |
         echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
     - name: Build .deb Package
       run: |
@@ -50,7 +50,7 @@ jobs:
         echo "Priority: optional" >> apt-who-needs/DEBIAN/control
         echo "Architecture: all" >> apt-who-needs/DEBIAN/control
         echo "Depends: python3" >> apt-who-needs/DEBIAN/control
-        echo "Maintainer: ${{ secrets.MY_NAME }} <${{ secrets.MY_EMAIL }>" >> apt-who-needs/DEBIAN/control
+        echo "Maintainer: ${{ secrets.MY_NAME }} <${{ secrets.MY_EMAIL }}>" >> apt-who-needs/DEBIAN/control
         echo "Description: Efinds out which packages depend on the specified package " >> apt-who-needs/DEBIAN/control
         cp apt-who-needs.py apt-who-needs/usr/local/bin/apt-who-needs
         chmod +x apt-who-needs/usr/local/bin/apt-who-needs
