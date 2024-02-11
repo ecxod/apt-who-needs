@@ -81,6 +81,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - name: Get the latest tag
+        id: get-latest-tag
+        run: |
+          echo "LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)" >> $GITHUB_ENV
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
